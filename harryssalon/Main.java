@@ -166,7 +166,7 @@ public class Main {
 
     // Save appointments logic
     private void saveAppointmentsToFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("appointments.txt", true))) { // True doesn't overwrite any existing code, and if the file doesn't exist, it will create a new.
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("appointments.txt"))) { // True doesn't overwrite any existing code, and if the file doesn't exist, it will create a new.
             for (Appointment appointment : appointments) {
                 writer.write(appointment.getCustomerName() + "," + appointment.getYear() + "," + appointment.getMonth() + "," + appointment.getDay() + "," + appointment.getHour() + "," + appointment.getMinute() + "," + appointment.getAddedProduct());
                 writer.newLine();
@@ -220,7 +220,11 @@ public class Main {
         List<Appointment> updatedAppointments = new ArrayList<>();
 
         for (Appointment appointment : appointments) {
-            if ((appointment.getCustomerName().equals(customerName) && appointment.getYear().equals(year)) && appointment.getMonth().equals(month) && appointment.getDay().equals(day)) {
+            if (!(appointment.getCustomerName().equals(customerName)
+                    && appointment.getYear().equals(year)
+                    && appointment.getMonth().equals(month)
+                    && appointment.getDay().equals(day))) {
+                // Keep appointments that don't match the one to be deleted
                 updatedAppointments.add(appointment);
             }
         }
@@ -233,6 +237,7 @@ public class Main {
             UI.println("No matching appointment found for deletion.");
         }
     }
+
 
     // View appointments on a specific date
     private void viewAppointment() {
