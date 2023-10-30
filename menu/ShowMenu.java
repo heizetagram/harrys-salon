@@ -1,12 +1,20 @@
-package ui;
+package menu;
 
-public class Menu {
+import ui.UI;
 
+public class ShowMenu {
+
+    // SHOW MENUS \\
     public void showRoleSelection() {
         UI.println("Welcome to Hairy Harry's!\nAre you: ");
         UI.println("(1) Customer");
         UI.println("(2) Harry");
         UI.println("(3) Accountant");
+        UI.println("(9) Quit");
+    }
+
+    public void showCustomerMenu() {
+        UI.println("(1) View available dates");
         UI.println("(9) Quit");
     }
 
@@ -28,4 +36,7 @@ public class Menu {
         UI.println("(2) Hairnet");
         UI.println("(3) Balsam");
     }
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+
 }

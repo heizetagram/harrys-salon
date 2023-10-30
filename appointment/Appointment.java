@@ -1,4 +1,4 @@
-package harryssalon;
+package appointment;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +12,7 @@ public class Appointment {
     private String addedProduct;
     private LocalDateTime dateTime;
 
+    // Constructor
     public Appointment(String customerName, String year, String month, String day, String hour, String minute, String addedProduct){
         this.customerName = customerName;
         this.year = year;
@@ -20,8 +21,9 @@ public class Appointment {
         this.hour = hour;
         this.minute = minute;
         this.addedProduct = addedProduct;
-
     }
+
+    // Getters
     public String getCustomerName(){
         return customerName;
     }
@@ -43,11 +45,12 @@ public class Appointment {
     public String getAddedProduct(){
         return addedProduct;
     }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
     public LocalDateTime getDateTime() {
         return dateTime;
+    }
+
+    // Setters
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 }

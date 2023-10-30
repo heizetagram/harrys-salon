@@ -1,4 +1,4 @@
-package harryssalon;
+package security;
 
 import ui.ConsoleColors;
 import ui.UI;
