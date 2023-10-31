@@ -138,6 +138,6 @@ public class ModifyAppointment {
     }
 
     public void testing() {
-        UI.printf("hej med dig");
+        UI.printf("kthankbye");
     }
 }
