@@ -60,21 +60,6 @@ public class Main {
                 case "harry" -> login.loginHarry(); // Harry's menu options
                 case "accountant" -> login.loginAccountant(); // Accountant's menu options
             }
-
-            /* NOT USED
-            if ("2".equals(secondChoice)) {
-                menu.showAddProductMenu();
-                int secondMenuChoice = UI.promptInt();
-                switch (secondMenuChoice) {
-                    case 1 -> thirdChoice = "Shampoo has been added to reservation, press 1 for status";
-                    case 2 -> thirdChoice = "Hairnet has been added to reservation, press 1 for status";
-                    case 3 -> thirdChoice = "Balsam has been added to reservation, press 1 for status";
-                    default -> tryAgain();
-                }
-                UI.println(thirdChoice);
-            }
-
-             */
         }
     }
     ////////////////////////////////////////////////////////////
