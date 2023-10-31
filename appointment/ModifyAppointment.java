@@ -136,4 +136,8 @@ public class ModifyAppointment {
         }
         UI.println(""); // Empty line
     }
+
+    public void testing() {
+        UI.printf("hej med dig");
+    }
 }
