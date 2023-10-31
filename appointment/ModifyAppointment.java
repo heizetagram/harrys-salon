@@ -22,7 +22,6 @@ public class ModifyAppointment {
         sortDate = new SortDate(main);
     }
 
-
     // View available dates
     public void viewAvailableDates() {
         UI.println("Opening hours: 10-18");
@@ -122,7 +121,9 @@ public class ModifyAppointment {
 
 
         for (Appointment appointment : main.getAppointments()) // Iterates through each appointment in appointments, and checks if it contains user input.
-            if (appointment.getYear().contentEquals(userYear) && appointment.getMonth().contentEquals(userMonth) && appointment.getDay().contentEquals(userDay)) {
+            if (appointment.getYear().contentEquals(userYear)
+                    && appointment.getMonth().contentEquals(userMonth)
+                    && appointment.getDay().contentEquals(userDay)) {
                 systemMessages.printAppointment(appointment);
             }
         UI.println(""); // Empty line
@@ -136,4 +137,72 @@ public class ModifyAppointment {
         }
         UI.println(""); // Empty line
     }
+
+    public void editAppointment() {
+        UI.promptString();
+        UI.println("Enter Costumer name");
+        String costumerName = UI.promptString();
+        UI.println("Enter Years");
+        String currentYear = UI.promptString();
+        UI.println("Enter month");
+        String currentMonth = UI.promptString();
+        UI.println("Enter day");
+        String currentDay = UI.promptString();
+        UI.println("Enter hours");
+        String currentHour = UI.promptString();
+        UI.println("Enter Minute");
+        String currenMinute = UI.promptString();
+        UI.println("Enter added product");
+        String currentProduct = UI.promptString();
+
+        Appointment appointmentToEdit = null;
+        for (Appointment appointment : main.getAppointments()) {
+            if (appointment.getCustomerName().equals(costumerName) &&
+                    (appointment.getYear().equals(currentYear) &&
+                            (appointment.getMonth().equals(currentMonth) &&
+                            (appointment.getDay().equals(currentDay) &&
+                                    (appointment.getHour().equals(currentHour) &&
+                                     (appointment.getMinute().equals(currenMinute) &&
+                                     (appointment.getAddedProduct().equals(currentProduct)))))))) {
+                appointmentToEdit = appointment;
+
+                if (appointmentToEdit == null) {
+                    UI.println("No appointment found");
+
+                } else {
+                    UI.println("Enter new name");
+                    String newName = Integer.toString(UI.promptInt());
+                    UI.println("Enter new year");
+                    String newYear = Integer.toString(UI.promptInt());
+                    UI.println("enter new month");
+                    String newMonth = Integer.toString(UI.promptInt());
+                    UI.println("enter new day");
+                    String newDay = Integer.toString(UI.promptInt());
+
+                    UI.println("Enter new hour");
+                    String newHour = Integer.toString(UI.promptInt());
+                    UI.println("Enter new minute");
+                    String newMinute = Integer.toString(UI.promptInt());
+                    UI.println("Enter New added products");
+                    String newProduct = Integer.toString(UI.promptInt());
+
+                    appointmentToEdit.setName(newName);
+                    appointmentToEdit.setYear(newYear);
+                    appointmentToEdit.setMonth(newMonth);
+                    appointmentToEdit.setDay(newDay);
+                    appointmentToEdit.setHour(newHour);
+                    appointmentToEdit.setMinute(newMinute);
+                    appointmentToEdit.setAddedProduct(newProduct);
+
+                    fileHandlingAppointment.saveAppointmentsToFile();
+
+
+
+                }
+            }
+        }
+    }
 }
+
+
+

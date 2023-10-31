@@ -19,14 +19,16 @@ public class ShowMenu {
     }
 
     public void showAccountantMenu() {
-        UI.println("(1) View Appointments");
+        UI.println("(1) View all Appointments");
+        UI.println("(2) Search for specific day ");
         UI.println("(9) Quit");
     }
 
     public void showHarryMenu() {
         UI.println("(1) Book appointment");
-        UI.println("(2) Delete appointment");
-        UI.println("(3) View appointment");
+        UI.println("(3) Delete appointment");
+        UI.println("(4) View appointment");
+        UI.println("(5) Edit appointment");
         UI.println("(9) Quit");
     }
 

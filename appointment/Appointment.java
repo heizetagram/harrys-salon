@@ -53,4 +53,25 @@ public class Appointment {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+    public void setYear(String year){
+        this.year = year;
+    }
+    public void setMonth(String month){
+        this.month = month;
+    }
+    public void setDay(String day){
+        this.day = day;
+    }
+    public void setHour(String hour){
+        this.hour = hour;
+    }
+    public void setMinute(String minute){
+        this.minute = minute;
+    }
+    public void setName(String name){
+        this.customerName = name;
+    }
+    public void setAddedProduct(String addedProduct){
+        this.addedProduct = addedProduct;
+    }
 }

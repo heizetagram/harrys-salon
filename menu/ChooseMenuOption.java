@@ -48,8 +48,11 @@ public class ChooseMenuOption {
             int choice = UI.promptInt();
             switch (choice) {
                 case 1 -> {modifyAppointment.bookAppointment(); systemMessages.pressEnterToContinue();}
-                case 2 -> {modifyAppointment.deleteAppointment(); systemMessages.pressEnterToContinue();}
-                case 3 -> {modifyAppointment.viewAppointment(); systemMessages.pressEnterToContinue();}
+
+                //case 2 -> {secondChoice = "2"; systemMessages.pressEnterToContinue();}
+                case 3 -> {modifyAppointment.deleteAppointment(); systemMessages.pressEnterToContinue();}
+                case 4 -> {modifyAppointment.viewAppointment(); systemMessages.pressEnterToContinue();}
+                case 5 -> {modifyAppointment.editAppointment(); systemMessages.pressEnterToContinue();}
                 case 9 -> systemMessages.quitSystem();
                 default -> systemMessages.tryAgain();
             }
@@ -62,6 +65,7 @@ public class ChooseMenuOption {
             int choice = UI.promptInt();
             switch (choice) {
                 case 1 -> {modifyAppointment.viewAllSortedAppointments(); systemMessages.pressEnterToContinue();}
+                case 2 -> {modifyAppointment.viewAppointment(); systemMessages.pressEnterToContinue();}
                 case 9 -> systemMessages.quitSystem();
                 default -> systemMessages.tryAgain();
             }
