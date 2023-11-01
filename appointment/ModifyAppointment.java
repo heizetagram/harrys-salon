@@ -184,6 +184,3 @@ public class ModifyAppointment {
         }
     }
 }
-
-
-
