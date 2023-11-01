@@ -15,7 +15,7 @@ public class SystemMessages {
 
     // Prints appointment information
     public void printAppointment(Appointment appointment) {
-        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d, %s, %s%n", ConsoleColors.YELLOW,
+        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d: %s, %s%n", ConsoleColors.YELLOW,
                 Integer.parseInt(appointment.getYear()),
                 Integer.parseInt(appointment.getMonth()),
                 Integer.parseInt(appointment.getDay()),
@@ -25,6 +25,18 @@ public class SystemMessages {
                 appointment.getCustomerName(),
                 appointment.getAddedProduct());
     }
+
+    // Prints available date information
+    public void printAvailableDate(Appointment availableDate) {
+        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d%n", ConsoleColors.YELLOW,
+                Integer.parseInt(availableDate.getYear()),
+                Integer.parseInt(availableDate.getMonth()),
+                Integer.parseInt(availableDate.getDay()),
+                ConsoleColors.RESET,
+                Integer.parseInt(availableDate.getHour()),
+                Integer.parseInt(availableDate.getMinute()));
+    }
+
 
     // Press ENTER to continue
     public void pressEnterToContinue() {
