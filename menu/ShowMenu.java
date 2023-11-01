@@ -26,9 +26,9 @@ public class ShowMenu {
 
     public void showHarryMenu() {
         UI.println("(1) Book appointment");
-        UI.println("(3) Delete appointment");
-        UI.println("(4) View appointment");
-        UI.println("(5) Edit appointment");
+        UI.println("(2) Delete appointment");
+        UI.println("(3) View appointment");
+        UI.println("(4) Edit appointment");
         UI.println("(9) Quit");
     }
 
