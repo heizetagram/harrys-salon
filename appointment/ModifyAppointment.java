@@ -127,6 +127,7 @@ public class ModifyAppointment {
         UI.println(""); // Empty line
     }
 
+    // Edit appointment
     public void editAppointment() {
         UI.promptString(); // Scanner bug
         customerName = promptDate.promptCustomerName();
