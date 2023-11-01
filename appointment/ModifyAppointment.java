@@ -34,7 +34,6 @@ public class ModifyAppointment {
         UI.println("Enter day (d)");
         String userDay = Integer.toString(UI.promptInt());
 
-        main.getAvailableDates().add(new Appointment("Michael", "2023", "12", "12", "15", "30", "N/A"));
         for (Appointment availableDate : main.getAvailableDates())
             for (Appointment appointment : main.getAppointments()) {
                 if (availableDate.getCustomerName().equals(appointment.getCustomerName()) && availableDate.getYear().equals(appointment.getYear()) && availableDate.getMonth().equals(appointment.getMonth()) && availableDate.getDay().equals(appointment.getDay())) {
@@ -58,15 +57,16 @@ public class ModifyAppointment {
         String hour = Integer.toString(UI.promptInt());
         UI.println("Enter appointment minute (m)");
         String minute = Integer.toString(UI.promptInt());
-
-        UI.println("Enter added buys (Shampoo, balsam, hairnet");
+        double totalPrice = 200;
+        UI.println("Enter added buys (Shampoo, Balsam, Hairnet");
         UI.promptString(); // Scanner bug
         String addedProduct = UI.promptString();
+
 
         if (addedProduct.isEmpty()) {
             addedProduct = "N/A";
         }
-        main.getAppointments().add(new Appointment(costumerName, year, month, day, hour, minute, addedProduct));
+        main.getAppointments().add(new Appointment(costumerName, year, month, day, hour, minute, Double.toString(totalPrice), addedProduct));
         UI.println("Appointment added successfully! :D");
 
         fileHandlingAppointment.saveAppointmentsToFile();

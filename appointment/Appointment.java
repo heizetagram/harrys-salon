@@ -11,15 +11,16 @@ public class Appointment {
     private String minute;
     private String addedProduct;
     private LocalDateTime dateTime;
-
+    private String totalPrice;
     // Constructor
-    public Appointment(String customerName, String year, String month, String day, String hour, String minute, String addedProduct){
+    public Appointment(String customerName, String year, String month, String day, String hour, String minute, String totalPrice, String addedProduct){
         this.customerName = customerName;
         this.year = year;
         this.month = month;
         this.day = day;
         this.hour = hour;
         this.minute = minute;
+        this.totalPrice = totalPrice;
         this.addedProduct = addedProduct;
     }
 
@@ -48,7 +49,9 @@ public class Appointment {
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-
+public String getTotalPrice() {
+        return totalPrice;
+}
     // Setters
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
