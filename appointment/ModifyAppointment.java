@@ -64,6 +64,15 @@ public class ModifyAppointment {
         if (addedProduct.isEmpty()) {
             addedProduct = "N/A";
         }
+        switch (addedProduct) {
+            case "Shampoo" -> totalPrice += 50;
+            case "Balsam" -> totalPrice += 60;
+            case "Hairnet" -> totalPrice += 100;
+            default ->
+                    UI.println("No added hair product");
+
+        }
+        System.out.println(totalPrice);
         main.getAppointments().add(new Appointment(customerName, stringUserYear, stringUserMonth, stringUserDay, stringUserHour, stringUserMinute, Double.toString(totalPrice), addedProduct));
         UI.println(ConsoleColors.GREEN_BRIGHT + "Appointment added successfully\n" + ConsoleColors.RESET);
 

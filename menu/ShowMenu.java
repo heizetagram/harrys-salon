@@ -21,6 +21,7 @@ public class ShowMenu {
     public void showAccountantMenu() {
         UI.println("(1) View all Appointments");
         UI.println("(2) Search for specific day ");
+        UI.println("(3) Calculate daily turnover for a specific date ");
         UI.println("(9) Quit");
     }
 

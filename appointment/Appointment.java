@@ -12,7 +12,7 @@ public class Appointment {
     private String addedProduct;
     private LocalDateTime dateTime;
     private String totalPrice;
-
+    private String date;
     // Constructor
     public Appointment(String customerName, String year, String month, String day, String hour, String minute, String totalPrice, String addedProduct){
         this.customerName = customerName;
@@ -50,9 +50,10 @@ public class Appointment {
     public LocalDateTime getDateTime() {
         return dateTime;
     }
-public String getTotalPrice() {
-        return totalPrice;
-}
+public double getTotalPrice() {
+        return Double.parseDouble(totalPrice);
+    }
+
     // Setters
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
