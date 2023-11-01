@@ -2,6 +2,7 @@ package harryssalon;
 
 import appointment.Appointment;
 import appointment.FileHandlingAppointment;
+import date.AvailableDate;
 import menu.ChooseMenuOption;
 import security.Login;
 import security.Password;
@@ -23,6 +24,7 @@ public class Main {
     String thirdChoice;
     Login login;
     FileHandlingAppointment fileHandlingAppointment;
+    AvailableDate availableDate;
 
     // Initialize variables
     void initVars() {
@@ -41,6 +43,8 @@ public class Main {
         showMenu = new ShowMenu();
         chooseMenuOption = new ChooseMenuOption(this);
         login = new Login(this);
+
+        availableDate = new AvailableDate(this);
     }
 
     public static void main(String[] args) {
@@ -51,12 +55,15 @@ public class Main {
     private void run() {
         initVars();
 
+        availableDate.createAvailableDates();
+        availableDate.checkIfAppointmentOnDate();
+
         while (running) {
             showMenu.showRoleSelection();
             chooseMenuOption.chooseRoleSelectionMenuOption();
 
             switch (currentRole) {
-                case "customer" -> {showMenu.showCustomerMenu(); chooseMenuOption.chooseCustomerMenuOption();} // Customer's menu options
+                case "customer" -> login.loginCustomer(); // Customer's menu options
                 case "harry" -> login.loginHarry(); // Harry's menu options
                 case "accountant" -> login.loginAccountant(); // Accountant's menu options
             }
