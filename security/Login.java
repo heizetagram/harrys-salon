@@ -19,6 +19,14 @@ public class Login {
         chooseMenuOption = new ChooseMenuOption(main);
     }
 
+    // Customer
+    public void loginCustomer() {
+        while (main.isRunning()) { // Keep showing Customer's menu while logged in
+            showMenu.showCustomerMenu();
+            chooseMenuOption.chooseCustomerMenuOption();
+        }
+    }
+
     // Harry password
     public void loginHarry() {
         UI.println("Enter password");
@@ -26,7 +34,7 @@ public class Login {
         password.checkPassword(UI.promptString(), "1");
         while (password.isPasswordCorrect() && main.isRunning()) { // Keep showing Harry's menu while logged in
             showMenu.showHarryMenu();
-            chooseMenuOption.chooseHarrysMenuOption();
+            chooseMenuOption.chooseHarryMenuOption();
         }
         if (!password.isPasswordCorrect()) {
             main.setRunning(false);
