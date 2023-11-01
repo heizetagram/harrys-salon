@@ -12,6 +12,7 @@ public class Appointment {
     private String addedProduct;
     private LocalDateTime dateTime;
     private String totalPrice;
+
     // Constructor
     public Appointment(String customerName, String year, String month, String day, String hour, String minute, String totalPrice, String addedProduct){
         this.customerName = customerName;
