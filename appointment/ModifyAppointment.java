@@ -65,7 +65,7 @@ public class ModifyAppointment {
             addedProduct = "N/A";
         }
         main.getAppointments().add(new Appointment(customerName, stringUserYear, stringUserMonth, stringUserDay, stringUserHour, stringUserMinute, Double.toString(totalPrice), addedProduct));
-        UI.println("Appointment added successfully! :D");
+        UI.println(ConsoleColors.GREEN_BRIGHT + "Appointment added successfully\n" + ConsoleColors.RESET);
 
         fileHandlingAppointment.saveAppointmentsToFile();
     }
@@ -91,11 +91,11 @@ public class ModifyAppointment {
         }
 
         if (updatedAppointments.size() < main.getAppointments().size()) {
-            UI.println("Appointment deleted successfully!");
+            UI.println(ConsoleColors.GREEN_BRIGHT + "Appointment deleted successfully!\n" + ConsoleColors.RESET);
             main.setAppointments(updatedAppointments); // Update the appointments list
             fileHandlingAppointment.saveAppointmentsToFile();
         } else {
-            UI.println("No matching appointment found for deletion.");
+            UI.println(ConsoleColors.RED + "No matching appointment found for deletion\n" + ConsoleColors.RESET);
         }
     }
 
