@@ -20,12 +20,12 @@ public class SystemMessages {
 
     // Print user date dates
     public void printUserDate(int year, int month, int day, String dayOfWeek) {
-        UI.printf("%s%04d-%02d/%02d, %s: %s", ConsoleColors.YELLOW, year, month, day, dayOfWeek, ConsoleColors.RESET);
+        UI.printf("%s%04d-%02d/%02d, %-12s %s", ConsoleColors.YELLOW, year, month, day, dayOfWeek + ":", ConsoleColors.RESET);
     }
 
     // Prints appointment information
     public void printAppointment(Appointment appointment) {
-        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d: %-10s (Added product:   %s%7s%s)%n", ConsoleColors.YELLOW,
+        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d: %-20s (Added product:   %s%7s%s)%n", ConsoleColors.YELLOW,
                 Integer.parseInt(appointment.getYear()),
                 Integer.parseInt(appointment.getMonth()),
                 Integer.parseInt(appointment.getDay()),
@@ -40,14 +40,14 @@ public class SystemMessages {
 
     // Prints appointment with financial information
     public void printFinancialAppointment(Appointment appointment) {
-        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d: %-10s Total price: %s%.2f DKK%s, (Added product:   %s%7s%s)%n", ConsoleColors.YELLOW,
+        UI.printf("%s%04d-%02d/%02d%s, %02d:%02d: %-20s Total price: %s%.2f DKK%s, (Added product:   %s%7s%s)%n", ConsoleColors.YELLOW,
                 Integer.parseInt(appointment.getYear()),
                 Integer.parseInt(appointment.getMonth()),
                 Integer.parseInt(appointment.getDay()),
                 ConsoleColors.RESET,
                 Integer.parseInt(appointment.getHour()),
                 Integer.parseInt(appointment.getMinute()),
-                appointment.getCustomerName() + ",",
+                appointment.getCustomerName(),
                 ConsoleColors.GREEN_BRIGHT,
                 appointment.getTotalPrice(),
                 ConsoleColors.RESET,
