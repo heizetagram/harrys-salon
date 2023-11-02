@@ -20,6 +20,7 @@ public class FinancialAppointmentInfo {
     private String stringUserDay;
     private boolean hasPrinted;
 
+    // Constructor
     public FinancialAppointmentInfo(Main main) {
         this.main = main;
         sortDate = new SortDate(main);
@@ -47,7 +48,7 @@ public class FinancialAppointmentInfo {
             }
         }
         if (!hasPrinted) {
-            systemMessages.printRedColoredText("You cannot view future appointments");
+            systemMessages.printRedColoredText("Cannot view future appointments");
         }
         UI.println(""); // Empty line
     }
