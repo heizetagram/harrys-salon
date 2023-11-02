@@ -1,6 +1,7 @@
 package menu;
 
-import appointment.Appointment;
+import accounting.DailyTurnover;
+import accounting.FinancialAppointmentInfo;
 import appointment.ModifyAppointment;
 import date.AvailableDate;
 import date.PromptDate;
@@ -8,15 +9,15 @@ import harryssalon.Main;
 import ui.SystemMessages;
 import ui.UI;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class ChooseMenuOption {
     private Main main;
     private SystemMessages systemMessages;
     private ModifyAppointment modifyAppointment;
     private AvailableDate availableDate;
     private PromptDate promptDate;
+    private DailyTurnover dailyTurnover;
+    private FinancialAppointmentInfo financialAppointmentInfo;
+
     // Constructor
     public ChooseMenuOption(Main main) {
         this.main = main;
@@ -24,6 +25,8 @@ public class ChooseMenuOption {
         modifyAppointment = new ModifyAppointment(main);
         availableDate = new AvailableDate(main);
         promptDate = new PromptDate();
+        dailyTurnover = new DailyTurnover(main);
+        financialAppointmentInfo = new FinancialAppointmentInfo(main);
      }
 
     // CHOOSE MENU OPTIONS \\
@@ -53,8 +56,8 @@ public class ChooseMenuOption {
         switch (UI.promptInt()) {
             case 1 -> {modifyAppointment.bookAppointment(); systemMessages.pressEnterToContinue();}
             case 2 -> {modifyAppointment.deleteAppointment(); systemMessages.pressEnterToContinue();}
-            case 3 -> {modifyAppointment.viewAppointment(); systemMessages.pressEnterToContinue();}
-            case 4 -> {modifyAppointment.editAppointment(); systemMessages.pressEnterToContinue();}
+            case 3 -> {modifyAppointment.editAppointment(); systemMessages.pressEnterToContinue();}
+            case 4 -> {modifyAppointment.viewAppointment(); systemMessages.pressEnterToContinue();}
             case 9 -> systemMessages.quitSystem();
             default -> systemMessages.tryAgain();
         }
@@ -64,38 +67,10 @@ public class ChooseMenuOption {
     public void chooseAccountantMenuOption() {
         switch (UI.promptInt()) {
             case 1 -> {modifyAppointment.viewAllSortedAppointments(); systemMessages.pressEnterToContinue();}
-            case 2 -> {modifyAppointment.viewAppointment(); systemMessages.pressEnterToContinue();}
-            case 3 -> calculateDailyTurnover();
+            case 2 -> {financialAppointmentInfo.viewFinancialAppointment(); systemMessages.pressEnterToContinue();}
+            case 3 -> {dailyTurnover.calculateDailyTurnover(); systemMessages.pressEnterToContinue();}
             case 9 -> systemMessages.quitSystem();
             default -> systemMessages.tryAgain();
-        }
-    }
-    // Calculate daily turnover for appointments on a specific date
-    public void calculateDailyTurnover() {
-       /* UI.println("Enter the date to calculate the daily turnover (YYYY-MM-DD):");
-        UI.promptString();
-        String dateInput = UI.promptString();
-*/
-        String stringUserYear = promptDate.promptYear();
-        String stringUserMonth = promptDate.promptMonth();
-        String stringUserDay = promptDate.promptDay();
-        try {
-           // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            //Date targetDate = dateFormat.parse(dateInput);
-
-            double totalTurnover = 0;
-
-            for (Appointment appointment : main.getAppointments()) {
-
-                    if (appointment.getYear().equals(stringUserYear)&&(appointment.getMonth().equals(stringUserMonth)&&(appointment.getDay().equals(stringUserDay)))) {
-                        totalTurnover += appointment.getTotalPrice();
-                    }
-                }
-
-
-            UI.println("The total turnover for " + stringUserYear + "-" + stringUserMonth + "/" + stringUserDay + " is: DKK" + totalTurnover);
-        } catch (Exception e) {
-            UI.println("Invalid date format. Please use the format YYYY-MM-DD.");
         }
     }
 }
