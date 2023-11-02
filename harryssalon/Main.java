@@ -5,7 +5,6 @@ import appointment.FileHandlingAppointment;
 import date.AvailableDate;
 import menu.ChooseMenuOption;
 import security.Login;
-import security.Password;
 import menu.ShowMenu;
 
 import java.util.ArrayList;
@@ -17,34 +16,28 @@ public class Main {
     ArrayList<Appointment> availableDates;
     ShowMenu showMenu;
     ChooseMenuOption chooseMenuOption;
-    Password password;
-    boolean running;
     String currentRole;
-    String secondChoice;
-    String thirdChoice;
     Login login;
     FileHandlingAppointment fileHandlingAppointment;
     AvailableDate availableDate;
+    boolean running;
 
     // Initialize variables
     void initVars() {
-        availableDates = new ArrayList<>();
-        password = new Password();
-        running = true;
-        currentRole = "";
-        secondChoice = null;
-        thirdChoice = null;
-
-        fileHandlingAppointment = new FileHandlingAppointment(this);
         appointments = new ArrayList<>();
         sortedAppointments = new ArrayList<>();
-        fileHandlingAppointment.loadAppointmentsFromFile();
-
+        availableDates = new ArrayList<>();
         showMenu = new ShowMenu();
         chooseMenuOption = new ChooseMenuOption(this);
+        currentRole = "";
+
+        fileHandlingAppointment = new FileHandlingAppointment(this);
+        fileHandlingAppointment.loadAppointmentsFromFile();
+
         login = new Login(this);
 
         availableDate = new AvailableDate(this);
+        running = true;
     }
 
     public static void main(String[] args) {
