@@ -3,6 +3,7 @@ package appointment;
 import date.PromptDate;
 import date.SortDate;
 import harryssalon.Main;
+import menu.ShowMenu;
 import ui.ConsoleColors;
 import ui.SystemMessages;
 import ui.UI;
@@ -17,6 +18,7 @@ public class ModifyAppointment {
     private SystemMessages systemMessages;
     private SortDate sortDate;
     private PromptDate promptDate;
+    private ShowMenu showMenu;
     private String customerName;
     private String stringUserYear;
     private String stringUserMonth;
@@ -44,6 +46,7 @@ public class ModifyAppointment {
         systemMessages = new SystemMessages(main);
         sortDate = new SortDate(main);
         promptDate = new PromptDate();
+        showMenu = new ShowMenu();
     }
 
     // Booking of appointments logic
@@ -58,23 +61,24 @@ public class ModifyAppointment {
 
         double totalPrice = 200;
 
-        UI.println("Enter added buys (Shampoo, Balsam, Hairnet");
+        showMenu.showAddProductMenu();
         UI.promptString(); // Scanner bug
         String addedProduct = UI.promptString();
-        if (addedProduct.isEmpty()) {
-            addedProduct = "N/A";
+        switch (addedProduct) {
+            case "1" -> addedProduct = "Shampoo";
+            case "2" -> addedProduct = "Balsam";
+            case "3" -> addedProduct = "Hairnet";
+            default -> addedProduct = "N/A";
         }
+
         switch (addedProduct) {
             case "Shampoo" -> totalPrice += 50;
             case "Balsam" -> totalPrice += 60;
             case "Hairnet" -> totalPrice += 100;
-            default ->
-                    UI.println("No added hair product");
-
+            default -> systemMessages.printRedColoredText("No added hair product");
         }
-        System.out.println(totalPrice);
         main.getAppointments().add(new Appointment(customerName, stringUserYear, stringUserMonth, stringUserDay, stringUserHour, stringUserMinute, Double.toString(totalPrice), addedProduct));
-        UI.println(ConsoleColors.GREEN_BRIGHT + "Appointment added successfully\n" + ConsoleColors.RESET);
+        systemMessages.printGreenColoredText("Appointment added successfully\n");
 
         fileHandlingAppointment.saveAppointmentsToFile();
     }
@@ -104,7 +108,7 @@ public class ModifyAppointment {
             main.setAppointments(updatedAppointments); // Update the appointments list
             fileHandlingAppointment.saveAppointmentsToFile();
         } else {
-            UI.println(ConsoleColors.RED + "No matching appointment found for deletion\n" + ConsoleColors.RESET);
+            systemMessages.printRedColoredText("No matching appointment found for deletion\n");
         }
     }
 
@@ -118,12 +122,13 @@ public class ModifyAppointment {
         stringUserDay = promptDate.promptDay();
 
 
-        for (Appointment appointment : main.getAppointments()) // Iterates through each appointment in appointments, and checks if it contains user input.
+        for (Appointment appointment : main.getAppointments()) { // Iterates through each appointment in appointments, and checks if it contains user input.
             if (appointment.getYear().contentEquals(stringUserYear)
                     && appointment.getMonth().contentEquals(stringUserMonth)
                     && appointment.getDay().contentEquals(stringUserDay)) {
                 systemMessages.printAppointment(appointment);
             }
+        }
         UI.println(""); // Empty line
     }
 
@@ -150,13 +155,13 @@ public class ModifyAppointment {
 
         Appointment appointmentToEdit = null;
         for (Appointment appointment : main.getAppointments()) {
-            if (appointment.getCustomerName().equals(customerName) &&
-                    (appointment.getYear().equals(currentYear) &&
-                            (appointment.getMonth().equals(currentMonth) &&
-                            (appointment.getDay().equals(currentDay) &&
-                                    (appointment.getHour().equals(currentHour) &&
-                                     (appointment.getMinute().equals(currentMinute) &&
-                                     (appointment.getAddedProduct().equals(currentProduct)))))))) {
+            if (appointment.getCustomerName().equals(customerName)
+                    && (appointment.getYear().equals(currentYear)
+                    && (appointment.getMonth().equals(currentMonth)
+                    && (appointment.getDay().equals(currentDay)
+                    && (appointment.getHour().equals(currentHour)
+                    && (appointment.getMinute().equals(currentMinute)
+                    && (appointment.getAddedProduct().equals(currentProduct)))))))) {
                 appointmentToEdit = appointment;
 
                 UI.print(ConsoleColors.YELLOW_BOLD + "\nENTER NEW INFO");
@@ -175,7 +180,7 @@ public class ModifyAppointment {
                 newProduct = promptDate.promptProduct();
                 UI.print(ConsoleColors.RESET);
 
-                UI.println(ConsoleColors.GREEN_BRIGHT + "Successfully edited appointment!\n" + ConsoleColors.RESET);
+                systemMessages.printGreenColoredText("Successfully edited appointment\n");
 
                 appointmentToEdit.setName(newName);
                 appointmentToEdit.setYear(newYear);
@@ -189,7 +194,7 @@ public class ModifyAppointment {
                 }
             }
         if (appointmentToEdit == null) {
-            UI.println(ConsoleColors.RED + "No appointment found\n" + ConsoleColors.RESET);
+            systemMessages.printRedColoredText("No appointment found\n");
         }
     }
 }
