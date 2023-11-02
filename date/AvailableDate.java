@@ -2,7 +2,6 @@ package date;
 
 import appointment.Appointment;
 import harryssalon.Main;
-import ui.ConsoleColors;
 import ui.SystemMessages;
 import ui.UI;
 
@@ -14,82 +13,73 @@ import java.util.ArrayList;
 public class AvailableDate {
     private Main main;
     private LocalDateTime date;
-    private String userYear;
-    private String userMonth;
-    private String userDay;
-    private String stringYear;
-    private String stringMonth;
-    private String stringDay;
-    private String stringHour;
-    private String stringMinute;
+    private String stringUserYear;
+    private String stringUserMonth;
+    private String stringUserDay;
+    LocalDateTime dateTimeNow;
+    private LocalDateTime userDate;
     private SystemMessages systemMessages;
     private Appointment appointment;
     private ArrayList<Appointment> toRemove;
     private PromptDate promptDate;
+    LocalDateTime counterDate;
+    LocalDateTime endDate;
 
     public AvailableDate(Main main) {
         this.main = main;
         toRemove = new ArrayList<>();
         systemMessages = new SystemMessages(main);
         promptDate = new PromptDate();
+        counterDate = LocalDateTime.of(2023, 1, 1, 10, 0);
+        endDate = LocalDateTime.of(2024, 12, 31, 17, 30);
     }
 
     // View available dates
     public void viewAvailableDates() {
-        UI.println(ConsoleColors.BLUE_BRIGHT + "Opening hours: 10-18" + ConsoleColors.RESET);
-        userYear = promptDate.promptYear();
-        userMonth = promptDate.promptMonth();
-        userDay = promptDate.promptDay();
+        systemMessages.printOpeningHours();
+        stringUserYear = promptDate.promptYear();
+        stringUserMonth = promptDate.promptMonth();
+        stringUserDay = promptDate.promptDay();
 
+        dateTimeNow = LocalDateTime.now();
+        userDate = LocalDateTime.of(Integer.parseInt(stringUserYear), Integer.parseInt(stringUserMonth), Integer.parseInt(stringUserDay), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(), LocalDateTime.now().getSecond(), LocalDateTime.now().getNano());
 
-        UI.println(ConsoleColors.GREEN_BRIGHT + "Available times: " + ConsoleColors.RESET);
-        UI.printf("%s%s-%s/%s: %s", ConsoleColors.YELLOW, userYear, userMonth, userDay, ConsoleColors.RESET);
+        if (userDate.isBefore(dateTimeNow)) {
+            systemMessages.printRedColoredText("Cannot view times in the past");
+        } else {
+            systemMessages.printGreenColoredText("Available times:");
+            systemMessages.printUserDate(Integer.parseInt(stringUserYear), Integer.parseInt(stringUserMonth), Integer.parseInt(stringUserDay), userDate.getDayOfWeek().toString());
 
-        int i = 0;
-        for (Appointment availableDate : main.getAvailableDates()) { // Iterates through each appointment in appointments, and checks if it contains user input.
-            if (availableDate.getYear().contentEquals(userYear) && availableDate.getMonth().contentEquals(userMonth) && availableDate.getDay().contentEquals(userDay)) {
-                if (i > 0) {
-                    UI.print(", ");
+            int i = 0;
+            for (Appointment availableDate : main.getAvailableDates()) { // Iterates through each appointment in appointments, and checks if it contains user input.
+                if (availableDate.getYear().contentEquals(stringUserYear) && availableDate.getMonth().contentEquals(stringUserMonth) && availableDate.getDay().contentEquals(stringUserDay)) {
+                    if (i > 0) {
+                        UI.print(", ");
+                    }
+                    UI.printf("%02d:%02d", Integer.parseInt(availableDate.getHour()), Integer.parseInt(availableDate.getMinute()));
+                    i++;
                 }
-                UI.printf("%02d:%02d", Integer.parseInt(availableDate.getHour()), Integer.parseInt(availableDate.getMinute()));
-                i++;
+            }
+            if (i == 0) {
+                systemMessages.printRedColoredText("CLOSED\n");
+            } else {
+                UI.println("\n");
             }
         }
-        UI.println("\n");
     }
 
     // Creates available weekdays from 2023-2024
-    // VERY UGLY CODE
+    // While startDate doesn't equal endDate, keep adding 30 minutes until the dates become equal.
     public void createAvailableDates() {
-        for (int year = 2023; year <= 2024; year++) {
-            for (int month = 1; month <= 12; month++) {
-                for (int day = 1; day <= 31; day++) {
-                    for (int hour = 10; hour <= 17; hour++) {
-                        for (int minute = 0; minute <= 30; minute += 30) {
-                            parseIntToString(year, month, day, hour, minute);
-                            try { // Checks if given date is a valid date in the Gregorian Calendar
-                                date = LocalDateTime.of(year, month, day, hour, minute);
-                                if (!date.getDayOfWeek().equals(DayOfWeek.SATURDAY) && !date.getDayOfWeek().equals(DayOfWeek.SUNDAY)) { // Only adds weekdays to 'availableDates'
-                                    main.getAvailableDates().add(appointment = new Appointment("N/A", stringYear, stringMonth, stringDay, stringHour, stringMinute, "0", "N/A"));
-                                    //systemMessages.printAppointment(appointment);
-                                }
-                            } catch (DateTimeException e) {
-                                // Intentionally left blank
-                            }
-                        }
-                    }
-                }
+        while (!counterDate.isEqual(endDate)) {
+            main.getAvailableDates().add(appointment = new Appointment("N/A", Integer.toString(counterDate.getYear()), Integer.toString(counterDate.getMonthValue()), Integer.toString(counterDate.getDayOfMonth()), Integer.toString(counterDate.getHour()), Integer.toString(counterDate.getMinute()), "0", "N/A"));
+            counterDate = counterDate.plusMinutes(30);
+
+            // If startDate's hour is higher than 17, add 16 hours to skip to 10 o'clock the next day.
+            if (counterDate.getHour() > 17) {
+                counterDate = counterDate.plusHours(16);
             }
         }
-    }
-
-    // Parses int to String
-    private void parseIntToString(int year, int month, int day, int hour, int minute) {
-        stringYear = Integer.toString(year);
-        stringMonth = Integer.toString(month);
-        stringDay = Integer.toString(day);
-        stringHour = Integer.toString(hour);
-        stringMinute = Integer.toString(minute);
     }
 
     // Removes 'availableDate' on dates with appointments
