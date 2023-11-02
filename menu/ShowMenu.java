@@ -1,5 +1,6 @@
 package menu;
 
+import ui.ConsoleColors;
 import ui.UI;
 
 public class ShowMenu {
@@ -19,8 +20,8 @@ public class ShowMenu {
     }
 
     public void showAccountantMenu() {
-        UI.println("(1) View all Appointments");
-        UI.println("(2) Search for specific day ");
+        UI.println("(1) View all appointments");
+        UI.println("(2) View appointment details on a specific date");
         UI.println("(3) Calculate daily turnover for a specific date ");
         UI.println("(9) Quit");
     }
@@ -28,15 +29,17 @@ public class ShowMenu {
     public void showHarryMenu() {
         UI.println("(1) Book appointment");
         UI.println("(2) Delete appointment");
-        UI.println("(3) View appointment");
-        UI.println("(4) Edit appointment");
+        UI.println("(3) Edit appointment");
+        UI.println("(4) View appointments on specific date");
         UI.println("(9) Quit");
     }
 
     public void showAddProductMenu() {
-        UI.println("(1) Shampoo");
-        UI.println("(2) Hairnet");
-        UI.println("(3) Balsam");
+        UI.println("Enter additional purchase:");
+        UI.printf("%s%s%5d DKK%s%n", "(1) Shampoo", ConsoleColors.GREEN_BRIGHT, 50, ConsoleColors.RESET);
+        UI.printf("%s%s%7d DKK%s%n", "(2) Balsam", ConsoleColors.GREEN_BRIGHT, 100, ConsoleColors.RESET);
+        UI.printf("%s%s%5d DKK%s%n", "(3) Hairnet", ConsoleColors.GREEN_BRIGHT, 60, ConsoleColors.RESET);
+        UI.print(ConsoleColors.BLACK_BRIGHT + "Press ENTER to skip" + ConsoleColors.RESET);
     }
     ////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////
