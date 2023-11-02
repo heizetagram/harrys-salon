@@ -23,6 +23,7 @@ public class DailyTurnover {
     private boolean isInTheFuture;
     private double totalTurnover;
 
+    // Constructor
     public DailyTurnover(Main main) {
         this.main = main;
         promptDate = new PromptDate();
@@ -39,8 +40,8 @@ public class DailyTurnover {
         stringUserMonth = promptDate.promptMonth();
         stringUserDay = promptDate.promptDay();
 
-        dateTimeNow = LocalDateTime.now();
         userDate = LocalDateTime.of(Integer.parseInt(stringUserYear), Integer.parseInt(stringUserMonth), Integer.parseInt(stringUserDay), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(), LocalDateTime.now().getSecond() , LocalDateTime.now().getNano());
+        dateTimeNow = LocalDateTime.now();
 
         totalTurnover = 0;
 
