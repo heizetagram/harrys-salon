@@ -143,15 +143,7 @@ public class ModifyAppointment {
 
     // Edit appointment
     public void editAppointment() {
-        UI.promptString(); // Scanner bug
-        customerName = promptDate.promptCustomerName();
-        currentYear = promptDate.promptYear();
-        currentMonth = promptDate.promptMonth();
-        currentDay = promptDate.promptDay();
-        currentHour = promptDate.promptHour();
-        currentMinute = promptDate.promptMinute();
-        UI.promptString(); // Scanner bug
-        currentProduct = promptDate.promptProduct();
+        initCurrentAppointmentPrompts();
 
         Appointment appointmentToEdit = null;
         for (Appointment appointment : main.getAppointments()) {
@@ -165,30 +157,11 @@ public class ModifyAppointment {
                 appointmentToEdit = appointment;
 
                 UI.print(ConsoleColors.YELLOW_BOLD + "\nENTER NEW INFO");
-                UI.println(ConsoleColors.YELLOW);
-                newName = promptDate.promptCustomerName();
-                newYear = promptDate.promptYear();
-                UI.print(ConsoleColors.YELLOW);
-                newMonth = promptDate.promptMonth();
-                UI.print(ConsoleColors.YELLOW);
-                newDay = promptDate.promptDay();
-                UI.print(ConsoleColors.YELLOW);
-                newHour = promptDate.promptHour();
-                UI.print(ConsoleColors.YELLOW);
-                newMinute = promptDate.promptMinute();
-                UI.promptString(); // Scanner bug
-                newProduct = promptDate.promptProduct();
-                UI.print(ConsoleColors.RESET);
+                initNewAppointmentPrompts();
 
                 systemMessages.printGreenColoredText("Successfully edited appointment\n");
 
-                appointmentToEdit.setName(newName);
-                appointmentToEdit.setYear(newYear);
-                appointmentToEdit.setMonth(newMonth);
-                appointmentToEdit.setDay(newDay);
-                appointmentToEdit.setHour(newHour);
-                appointmentToEdit.setMinute(newMinute);
-                appointmentToEdit.setAddedProduct(newProduct);
+                setValueOfAppointmentToEdit(appointmentToEdit);
 
                 fileHandlingAppointment.saveAppointmentsToFile();
                 }
@@ -196,5 +169,47 @@ public class ModifyAppointment {
         if (appointmentToEdit == null) {
             systemMessages.printRedColoredText("No appointment found\n");
         }
+    }
+
+    // Initializes current appointment prompts
+    private void initCurrentAppointmentPrompts() {
+        UI.promptString(); // Scanner bug
+        customerName = promptDate.promptCustomerName();
+        currentYear = promptDate.promptYear();
+        currentMonth = promptDate.promptMonth();
+        currentDay = promptDate.promptDay();
+        currentHour = promptDate.promptHour();
+        currentMinute = promptDate.promptMinute();
+        UI.promptString(); // Scanner bug
+        currentProduct = promptDate.promptProduct();
+    }
+
+    // Initializes new appointment prompts
+    private void initNewAppointmentPrompts() {
+        UI.println(ConsoleColors.YELLOW);
+        newName = promptDate.promptCustomerName();
+        newYear = promptDate.promptYear();
+        UI.print(ConsoleColors.YELLOW);
+        newMonth = promptDate.promptMonth();
+        UI.print(ConsoleColors.YELLOW);
+        newDay = promptDate.promptDay();
+        UI.print(ConsoleColors.YELLOW);
+        newHour = promptDate.promptHour();
+        UI.print(ConsoleColors.YELLOW);
+        newMinute = promptDate.promptMinute();
+        UI.promptString(); // Scanner bug
+        newProduct = promptDate.promptProduct();
+        UI.print(ConsoleColors.RESET);
+    }
+
+    // Sets value of appointmentToEdit
+    private void setValueOfAppointmentToEdit(Appointment appointmentToEdit) {
+        appointmentToEdit.setName(newName);
+        appointmentToEdit.setYear(newYear);
+        appointmentToEdit.setMonth(newMonth);
+        appointmentToEdit.setDay(newDay);
+        appointmentToEdit.setHour(newHour);
+        appointmentToEdit.setMinute(newMinute);
+        appointmentToEdit.setAddedProduct(newProduct);
     }
 }
