@@ -4,10 +4,8 @@ import appointment.Appointment;
 import date.PromptDate;
 import date.SortDate;
 import harryssalon.Main;
-import ui.ConsoleColors;
 import ui.SystemMessages;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DailyTurnover {
