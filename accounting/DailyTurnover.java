@@ -24,7 +24,7 @@ public class DailyTurnover {
     // Constructor
     public DailyTurnover(Main main) {
         this.main = main;
-        promptDate = new PromptDate();
+        promptDate = new PromptDate(main);
         systemMessages = new SystemMessages(main);
         sortDate = new SortDate(main);
     }
