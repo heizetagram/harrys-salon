@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    private List<Appointment> appointments;
+    List<Appointment> appointments;
     ArrayList<Appointment> sortedAppointments;
     ArrayList<Appointment> availableDates;
     ShowMenu showMenu;
