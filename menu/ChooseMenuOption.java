@@ -24,7 +24,7 @@ public class ChooseMenuOption {
         systemMessages = new SystemMessages(main);
         modifyAppointment = new ModifyAppointment(main);
         availableDate = new AvailableDate(main);
-        promptDate = new PromptDate();
+        promptDate = new PromptDate(main);
         dailyTurnover = new DailyTurnover(main);
         financialAppointmentInfo = new FinancialAppointmentInfo(main);
      }
