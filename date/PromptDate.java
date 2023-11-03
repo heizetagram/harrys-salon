@@ -1,14 +1,30 @@
 package date;
 
-import ui.ConsoleColors;
+import harryssalon.Main;
+import ui.SystemMessages;
 import ui.UI;
 
 public class PromptDate {
+    private Main main;
+    private SystemMessages systemMessages;
+
+    public PromptDate(Main main) {
+        this.main = main;
+        systemMessages = new SystemMessages(main);
+    }
 
     //Prompts user for customer name
     public String promptCustomerName() {
+        String userName = "";
         UI.print("Enter customer name: ");
-        return UI.promptString();
+        while (userName.isEmpty()) {
+            userName = UI.promptString();
+
+            if (userName.isEmpty()) {
+                systemMessages.printRedColoredText("Customer must have name");
+            }
+        }
+        return userName;
     }
 
     // Prompts user for year
@@ -21,7 +37,7 @@ public class PromptDate {
             intUserYear = UI.promptInt();
 
             if (intUserYear < 2023 || intUserYear > 2024) {
-                UI.println(ConsoleColors.RED + "Year must be between 2023-2024" + ConsoleColors.RESET);
+                systemMessages.printRedColoredText("Year must be between 2023-2024");
             }
         }
         return Integer.toString(intUserYear);
@@ -37,7 +53,7 @@ public class PromptDate {
             intUserMonth = UI.promptInt();
 
             if (intUserMonth < 1 || intUserMonth > 12) {
-                UI.println(ConsoleColors.RED + "Month must be between 1-12" + ConsoleColors.RESET);
+                systemMessages.printRedColoredText("Month must be between 1-12");
             }
         }
         return Integer.toString(intUserMonth);
@@ -53,7 +69,7 @@ public class PromptDate {
             intUserDay = UI.promptInt();
 
             if (intUserDay < 1 || intUserDay > 31) {
-                UI.println(ConsoleColors.RED + "Day must be between 1-31" + ConsoleColors.RESET);
+                systemMessages.printRedColoredText("Day must be between 1-31");
             }
         }
         return Integer.toString(intUserDay);
@@ -69,7 +85,7 @@ public class PromptDate {
             intUserHour = UI.promptInt();
 
             if (intUserHour < 10 || intUserHour > 17) {
-                UI.println(ConsoleColors.RED + "Hour must be between 10-17" + ConsoleColors.RESET);
+                systemMessages.printRedColoredText("Hour must be between 10-17");
             }
         }
         return Integer.toString(intUserHour);
@@ -85,7 +101,7 @@ public class PromptDate {
             intUserMinute = UI.promptInt();
 
             if (intUserMinute != 0 && intUserMinute != 30) {
-                UI.println(ConsoleColors.RED + "Minute must be 00 or 30" + ConsoleColors.RESET);
+                systemMessages.printRedColoredText("Minute must be 00 or 30");
             }
         }
         return Integer.toString(intUserMinute);
