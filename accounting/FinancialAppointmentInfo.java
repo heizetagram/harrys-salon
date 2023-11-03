@@ -19,10 +19,10 @@ public class FinancialAppointmentInfo {
     private String stringUserYear;
     private String stringUserMonth;
     private String stringUserDay;
-    LocalDateTime dateTimeNow;
-    LocalDateTime userDateTime;
-    ArrayList<Appointment> appointmentsForUserDate;
-    ArrayList<Appointment> appointmentsForDate;
+    private LocalDateTime dateTimeNow;
+    private LocalDateTime userDateTime;
+    private ArrayList<Appointment> appointmentsForUserDate;
+    private ArrayList<Appointment> appointmentsForDate;
 
     // Constructor
     public FinancialAppointmentInfo(Main main) {

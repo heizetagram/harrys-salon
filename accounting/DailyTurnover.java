@@ -16,7 +16,7 @@ public class DailyTurnover {
     private String stringUserYear;
     private String stringUserMonth;
     private String stringUserDay;
-    LocalDateTime dateTimeNow;
+    private LocalDateTime dateTimeNow;
     private LocalDateTime userDate;
     private boolean isInTheFuture;
     private double totalTurnover;

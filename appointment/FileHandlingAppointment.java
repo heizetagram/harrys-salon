@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class FileHandlingAppointment {
     private Main main;
-    String[] parts;
+    private String[] parts;
 
     // Constructor
     public FileHandlingAppointment(Main main) {
