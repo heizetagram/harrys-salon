@@ -28,7 +28,7 @@ public class FinancialAppointmentInfo {
     public FinancialAppointmentInfo(Main main) {
         this.main = main;
         sortDate = new SortDate(main);
-        promptDate = new PromptDate();
+        promptDate = new PromptDate(main);
         systemMessages = new SystemMessages(main);
     }
 
