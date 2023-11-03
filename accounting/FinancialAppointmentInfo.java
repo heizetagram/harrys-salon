@@ -8,6 +8,7 @@ import ui.SystemMessages;
 import ui.UI;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 public class FinancialAppointmentInfo {
@@ -18,7 +19,10 @@ public class FinancialAppointmentInfo {
     private String stringUserYear;
     private String stringUserMonth;
     private String stringUserDay;
-    private boolean hasPrinted;
+    LocalDateTime dateTimeNow;
+    LocalDateTime userDateTime;
+    ArrayList<Appointment> appointmentsForUserDate;
+    ArrayList<Appointment> appointmentsForDate;
 
     // Constructor
     public FinancialAppointmentInfo(Main main) {
@@ -26,7 +30,6 @@ public class FinancialAppointmentInfo {
         sortDate = new SortDate(main);
         promptDate = new PromptDate();
         systemMessages = new SystemMessages(main);
-        hasPrinted = false;
     }
 
     // View appointments with financial information on a specific date from <= today
@@ -37,19 +40,43 @@ public class FinancialAppointmentInfo {
         stringUserYear = promptDate.promptYear();
         stringUserMonth = promptDate.promptMonth();
         stringUserDay = promptDate.promptDay();
+        dateTimeNow = LocalDateTime.now();
+        userDateTime = LocalDateTime.of(Integer.parseInt(stringUserYear), Integer.parseInt(stringUserMonth), Integer.parseInt(stringUserDay), LocalDateTime.now().getHour(), LocalDateTime.now().getMinute(), LocalDateTime.now().getSecond(), LocalDateTime.now().getNano());
 
-        for (Appointment appointment : main.getAppointments()) { // Iterates through each appointment in appointments, and checks if it contains user input.
-            if (appointment.getYear().contentEquals(stringUserYear)
-                    && appointment.getMonth().contentEquals(stringUserMonth)
-                    && appointment.getDay().contentEquals(stringUserDay)
-                    && appointment.getDateTime().isBefore(LocalDateTime.now())) {
-                systemMessages.printFinancialAppointment(appointment);
-                hasPrinted = true;
+        // Checks if user-given date is after today's date
+        if (userDateTime.isAfter(dateTimeNow)) {
+            systemMessages.printRedColoredText("Cannot view future appointments");
+        } else {
+            appointmentsForUserDate = getAppointmentsForDate(stringUserYear, stringUserMonth, stringUserDay);
+
+            // Checks if there are appointments that day
+            if (appointmentsForUserDate.isEmpty()) {
+                systemMessages.printRedColoredText("No appointments that day");
+            } else {
+                for (Appointment appointment : appointmentsForUserDate) {
+                    systemMessages.printFinancialAppointment(appointment);
+                }
             }
         }
-        if (!hasPrinted) {
-            systemMessages.printRedColoredText("Cannot view future appointments");
-        }
+
         UI.println(""); // Empty line
+    }
+
+    // Gets appointments for user-given date
+    private ArrayList<Appointment> getAppointmentsForDate(String userYear, String userMonth, String userDay) {
+        appointmentsForDate = new ArrayList<>();
+
+        for (Appointment appointment : main.getAppointments()) { // Iterates through each appointment in appointments, and checks if it contains user input.
+            if (appointment.getYear().contentEquals(userYear)
+                    && appointment.getMonth().contentEquals(userMonth)
+                    && appointment.getDay().contentEquals(userDay)
+                    && appointment.getDateTime().isBefore(LocalDateTime.now())) {
+                appointmentsForDate.add(appointment);
+            }
+            if (appointment.getDateTime().isAfter(LocalDateTime.now())) {
+                isFuture = true;
+            }
+        }
+        return appointmentsForDate;
     }
 }
