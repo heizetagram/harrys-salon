@@ -41,7 +41,4 @@ public class ShowMenu {
         UI.printf("%s%s%5d DKK%s%n", "(3) Hairnet", ConsoleColors.GREEN_BRIGHT, 60, ConsoleColors.RESET);
         UI.print(ConsoleColors.BLACK_BRIGHT + "Press ENTER to skip" + ConsoleColors.RESET);
     }
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-
 }
