@@ -1,5 +1,6 @@
 package appointment;
 
+import date.AvailableDate;
 import date.PromptDate;
 import date.SortDate;
 import harryssalon.Main;
@@ -8,6 +9,7 @@ import ui.ConsoleColors;
 import ui.SystemMessages;
 import ui.UI;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +21,15 @@ public class ModifyAppointment {
     private SortDate sortDate;
     private PromptDate promptDate;
     private ShowMenu showMenu;
+    private AvailableDate availableDate;
     private String customerName;
     private String stringUserYear;
     private String stringUserMonth;
     private String stringUserDay;
     private String stringUserHour;
     private String stringUserMinute;
+    private LocalDateTime userDate;
+    private boolean foundAppointment;
     private String currentYear;
     private String currentMonth;
     private String currentDay;
@@ -45,8 +50,9 @@ public class ModifyAppointment {
         fileHandlingAppointment = new FileHandlingAppointment(main);
         systemMessages = new SystemMessages(main);
         sortDate = new SortDate(main);
-        promptDate = new PromptDate();
+        promptDate = new PromptDate(main);
         showMenu = new ShowMenu();
+        availableDate = new AvailableDate(main);
     }
 
     // Booking of appointments logic
@@ -77,10 +83,10 @@ public class ModifyAppointment {
             case "Hairnet" -> totalPrice += 100;
             default -> systemMessages.printRedColoredText("No added hair product");
         }
-        main.getAppointments().add(new Appointment(customerName, stringUserYear, stringUserMonth, stringUserDay, stringUserHour, stringUserMinute, Double.toString(totalPrice), addedProduct));
-        systemMessages.printGreenColoredText("Appointment added successfully\n");
 
-        fileHandlingAppointment.saveAppointmentsToFile();
+        userDate = LocalDateTime.of(Integer.parseInt(stringUserYear), Integer.parseInt(stringUserMonth), Integer.parseInt(stringUserDay), Integer.parseInt(stringUserHour), Integer.parseInt(stringUserMinute));
+        checkIfBookingIsPossible(customerName, stringUserYear, stringUserMonth, stringUserDay, stringUserHour, stringUserMinute, userDate, totalPrice, addedProduct);
+
     }
 
     // Delete appointments. creates a new arraylist (updatedAppointments), if the size of updated list is smaller than original, an appointment was deleted.
@@ -121,15 +127,21 @@ public class ModifyAppointment {
         stringUserMonth = promptDate.promptMonth();
         stringUserDay = promptDate.promptDay();
 
+        foundAppointment = false;
 
         for (Appointment appointment : main.getAppointments()) { // Iterates through each appointment in appointments, and checks if it contains user input.
             if (appointment.getYear().contentEquals(stringUserYear)
                     && appointment.getMonth().contentEquals(stringUserMonth)
                     && appointment.getDay().contentEquals(stringUserDay)) {
                 systemMessages.printAppointment(appointment);
+                foundAppointment = true;
             }
         }
-        UI.println(""); // Empty line
+        if (!foundAppointment) {
+            systemMessages.printRedColoredText("No appointments found");
+        } else {
+            UI.println(""); // Empty line
+        }
     }
 
     // View all sorted appointments
@@ -211,5 +223,30 @@ public class ModifyAppointment {
         appointmentToEdit.setHour(newHour);
         appointmentToEdit.setMinute(newMinute);
         appointmentToEdit.setAddedProduct(newProduct);
+    }
+
+    // Checks if time is already booked
+    private boolean checkIfTimeIsAlreadyBooked(String userYear, String userMonth, String userDay, String userHour, String userMinute) {
+        boolean isAlreadyBooked = false;
+        for (Appointment appointment : main.getAppointments()) {
+            if (appointment.getYear().equals(userYear) && appointment.getMonth().equals(userMonth) && appointment.getDay().equals(userDay) && appointment.getHour().equals(userHour) && appointment.getMinute().equals(userMinute)) {
+                isAlreadyBooked = true;
+            }
+        }
+        return isAlreadyBooked;
+    }
+
+    // Checks if booking is possible on given date
+    private void checkIfBookingIsPossible(String customerName, String userYear, String userMonth, String userDay, String userHour, String userMinute, LocalDateTime userDate, double totalPrice, String addedProduct) {
+        // Checks if time is already booked or if it's on a weekend
+        if (checkIfTimeIsAlreadyBooked(userYear, userMonth, userDay, userHour, userMinute)) {
+            systemMessages.printRedColoredText("Date is already booked\n");
+        } else if (availableDate.isWeekend(userDate)) {
+            systemMessages.printRedColoredText("Cannot book appointments on weekends");
+        } else {
+            main.getAppointments().add(new Appointment(customerName, userYear, userMonth, userDay, userHour, userMinute, Double.toString(totalPrice), addedProduct));
+            fileHandlingAppointment.saveAppointmentsToFile();
+            systemMessages.printGreenColoredText("Appointment added successfully\n");
+        }
     }
 }
