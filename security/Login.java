@@ -31,7 +31,7 @@ public class Login {
     public void loginHarry() {
         UI.println("Enter password");
         UI.promptString(); // Scanner bug
-        password.checkPassword(UI.promptString(), "1");
+        password.checkPassword(UI.promptString(), "hairyharry");
         while (password.isPasswordCorrect() && main.isRunning()) { // Keep showing Harry's menu while logged in
             showMenu.showHarryMenu();
             chooseMenuOption.chooseHarryMenuOption();
@@ -45,7 +45,7 @@ public class Login {
     public void loginAccountant() {
         UI.println("Enter password");
         UI.promptString(); // Scanner bug
-        password.checkPassword(UI.promptString(), "2");
+        password.checkPassword(UI.promptString(), "ihatemath");
         while (password.isPasswordCorrect() && main.isRunning()) { // Keep showing Accountant's menu while logged in
             showMenu.showAccountantMenu();
             chooseMenuOption.chooseAccountantMenuOption();
