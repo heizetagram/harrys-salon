@@ -73,9 +73,6 @@ public class FinancialAppointmentInfo {
                     && appointment.getDateTime().isBefore(LocalDateTime.now())) {
                 appointmentsForDate.add(appointment);
             }
-            if (appointment.getDateTime().isAfter(LocalDateTime.now())) {
-                isFuture = true;
-            }
         }
         return appointmentsForDate;
     }
