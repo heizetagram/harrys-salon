@@ -98,5 +98,4 @@ public class SystemMessages {
         UI.println("Cya!");
         main.setRunning(false);
     }
-
 }
