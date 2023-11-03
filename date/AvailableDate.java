@@ -31,7 +31,7 @@ public class AvailableDate {
         this.main = main;
         toRemove = new ArrayList<>();
         systemMessages = new SystemMessages(main);
-        promptDate = new PromptDate();
+        promptDate = new PromptDate(main);
         counterDate = LocalDateTime.of(2023, 1, 1, 10, 0);
         endDate = LocalDateTime.of(2024, 12, 31, 17, 30);
     }
@@ -97,7 +97,7 @@ public class AvailableDate {
     }
 
     // Checks if date is weekend
-    private boolean isWeekend(LocalDateTime userDate) {
+    public boolean isWeekend(LocalDateTime userDate) {
         return userDate.getDayOfWeek() == DayOfWeek.SATURDAY || userDate.getDayOfWeek() == DayOfWeek.SUNDAY;
     }
 
